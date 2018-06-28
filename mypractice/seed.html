@@ -24,16 +24,28 @@
 
 <script>
     function init(){
-        //var stats= initStats();
+        const stats= (()=>{
+            const stats=new Stats()
+            stats.setMode(0) //0：fps 1:ms
 
-        var scene =new THREE.Scene();
+            stats.domElement.style.position="absolute"
+            stats.domElement.style.left="0px"
+            stats.domElement.style.top="0px"
 
-        var camera = new THREE.Camera(45,window.innerHeight/window.innerHeight,0.1,1000)
+            document.getElementById("Stats-output").appendChild(stats.domElement)
+            return stats
+        })()
+
+        const scene =new THREE.Scene();
+
+        const axes = new THREE.AxisHelper(20);
+        scene.add(axes);
+
+        const camera = new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,0.1,1000)
         scene.add(camera)
 
-        var renderer=new THREE.WebGLRenderer();
+        const renderer=new THREE.WebGLRenderer();
         renderer.setClearColor(new THREE.Color(0xEEEEEE,1.0))
-
         renderer.setSize(window.innerWidth,window.innerHeight)
         renderer.shadowMapEnabled=true
 
